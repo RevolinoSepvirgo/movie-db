@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Nette\Utils\Strings;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Movie>
@@ -18,9 +18,9 @@ class MovieFactory extends Factory
      */
     public function definition(): array
     {
-        
+
         $title = fake()->sentence(rand(3, 6));
-        $slug = String::slug($title);
+        $slug = Str::slug($title);
         return [
             'title' => $title,
             'slug' => $slug,
@@ -28,7 +28,7 @@ class MovieFactory extends Factory
             'category_id' =>Category::inRandomOrder()->first(),
             'year' => fake()->year(),
             'actors' => fake()->name() . ', ' . fake('id')->name(),
-            'cover_image' => 'https://picsum.photos/seed/' . String::random(10) . '/480/640',
+            'cover_image' => 'https://picsum.photos/seed/' . Str::random(10) . '/480/640',
             'created_at' => now(),
             'updated_at' => now(),
         ];

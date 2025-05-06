@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Movie;
 use App\Models\User;
 use Database\Factories\MovieFactory;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -18,7 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategorySeeder::class,
         ]);
-         User::factory(10)->create();
+
+        Movie::factory()->count(20)->create();
 
         // User::factory()->create([
         //     'name' => 'Test User',
