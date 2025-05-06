@@ -5,16 +5,6 @@
     <h1 class="mb-4 text-center text-light" style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">Daftar Film</h1>
 
 
-
-
-    {{-- Alert Flash Message --}}
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
     {{-- Tambah Film Button --}}
    <a href="{{ route('movies.create') }}" class="btn btn-primary mb-3" style="background-color: #0056b3; border-color: #004085; transition: all 0.3s ease;">
     <i class="bi bi-plus-circle"></i> Tambah Film
@@ -31,20 +21,26 @@
                     <p class="card-text mb-4 text-muted">
                         <strong>Kategori:</strong> {{ $movie->category->category_name ?? '-' }}<br>
                         <strong>Tahun:</strong> {{ $movie->year }}<br>
-                        <strong>Pemeran:</strong> {{ $movie->actors }}
+                        <strong>Actors:</strong> {{ $movie->actors }}
                     </p>
                     <div class="mt-auto d-flex justify-content-between align-items-center">
                         <div class="d-flex gap-2">
                             <a href="{{ route('movies.edit', $movie->id) }}" class="btn btn-warning btn-sm">
-                                <i class="bi bi-pencil-square"></i> Edit
+                                <i class="bi bi-pencil-square"></i> 
                             </a>
                             <form action="{{ route('movies.destroy', $movie->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus film ini?')">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash"></i> Hapus
+                                    <i class="bi bi-trash"></i>
                                 </button>
                             </form>
+
+                        </div>
+                        <div>
+                            <a href="{{ route('movies.show', $movie->id) }}" class="btn btn-sm text-white" style="background-color: #343a40;">
+                                <i class="bi bi-info-circle"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
