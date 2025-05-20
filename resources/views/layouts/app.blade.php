@@ -42,9 +42,9 @@
         @yield('content')
     </main>
 
-    <footer class="bg-success text-white py-3">
+    <footer class="bg-success text-black py-3">
         <div class="container text-center">
-            &copy; {{ date('Y') }} FilmApp. All rights reserved.
+            &copy; {{ date('Y') }} Politeknik Negeri Padang--Manajemen Informatika.
         </div>
     </footer>
 

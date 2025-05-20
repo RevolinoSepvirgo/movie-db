@@ -1,8 +1,25 @@
 @extends('layouts.app')
 
+<style>
+    .pagination .page-item.active .page-link {
+        background-color: #28a745; /* warna hijau Bootstrap */
+        border-color: #28a745;
+        color: white;
+    }
+
+    .pagination .page-link {
+        color: #28a745;
+    }
+
+    .pagination .page-link:hover {
+        background-color: #e6f4ea;
+        color: #1d7a35;
+    }
+</style>
+
 @section('content')
-<div class="container bg-dark p-4 rounded">
-    <h1 class="md-4 text-center text-success" style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">Daftar Film</h1>
+<div class=" continer">
+    <h1 class="md-4 text-center text-dark" style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">Daftar Film</h1>
 
     {{-- Tombol Tambah Film --}}
    <a href="{{ route('movies.create') }}" class="btn btn-success mb-3" style="transition: all 0.3s ease;">
@@ -13,7 +30,9 @@
     <div class="row">
         @forelse ($movies as $movie)
             <div class="col-md-6 mb-4">
-                <div class="card h-100 shadow-sm border-0 rounded-3">
+                <div class="card h-100 border-2 rounded-4" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 0 6px 20px rgba(0, 0, 0, 0.4);"
+>
+
                     <div class="row g-0">
                         <div class="col-md-4">
                             <img src="{{ $movie->cover_image }}" class="img-fluid rounded-start" alt="{{ $movie->title }}" style="height: 100%; object-fit: cover;">
@@ -60,7 +79,7 @@
     </div>
 
     {{-- Pagination --}}
-    <div class="mt-4">
+    <div class="mt-4 bg-succes">
         {{ $movies->links() }}
     </div>
 </div>
