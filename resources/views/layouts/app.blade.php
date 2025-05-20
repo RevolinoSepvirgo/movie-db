@@ -6,13 +6,29 @@
     <title>Aplikasi Film</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+        }
 
+        body {
+            display: flex;
+            flex-direction: column;
+        }
 
+        main {
+            flex: 1; /* agar main mengambil ruang tersisa */
+        }
+
+        footer {
+            margin-top: auto; /* dorong footer ke bawah */
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <nav class="navbar navbar-expand-lg navbar-success bg-success mb-4">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('movies.index') }}">FilmApp</a>
+            <a class="navbar-brand text-white" href="{{ route('movies.index') }}">🎥 Movie db</a>
         </div>
     </nav>
 
@@ -26,19 +42,22 @@
         @yield('content')
     </main>
 
-    <footer class="text-center mt-5 mb-3 text-muted">
-        &copy; {{ date('Y') }} FilmApp. All rights reserved.
+    <footer class="bg-success text-white py-3">
+        <div class="container text-center">
+            &copy; {{ date('Y') }} FilmApp. All rights reserved.
+        </div>
     </footer>
+
+    <script>
+        // Hapus alert setelah 5 detik
+        setTimeout(() => {
+            const alert = document.querySelector('.alert');
+            if (alert) {
+                alert.classList.remove('show');
+                alert.classList.add('fade');
+                setTimeout(() => alert.remove(), 300);
+            }
+        }, 5000);
+    </script>
 </body>
-<script>
-    // Hapus alert setelah 3 detik (3000 milidetik)
-    setTimeout(() => {
-        const alert = document.querySelector('.alert');
-        if (alert) {
-            alert.classList.remove('show');
-            alert.classList.add('fade');
-            setTimeout(() => alert.remove(), 300); // hapus dari DOM setelah animasi
-        }
-    }, 5000); // 3 detik
-</script>
 </html>

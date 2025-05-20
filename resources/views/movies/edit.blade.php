@@ -32,6 +32,10 @@
             <label for="actors" class="form-label">Actors</label>
             <input type="text" name="actors" id="actors" class="form-control" value="{{ old('actors', $movie->actors) }}" required>
         </div>
+        <div class="mb-3">
+            <label for="synopsis" class="form-label">synopsis</label>
+            <input type="text" name="synopsis" id="synopsis" class="form-control" value="{{ old('synopsis', $movie->synopsis) }}" required>
+        </div>
 
         <div class="mb-3">
             <label for="cover_image" class="form-label">Gambar</label>

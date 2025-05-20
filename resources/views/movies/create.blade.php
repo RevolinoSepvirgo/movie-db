@@ -34,6 +34,7 @@
             <label for="actors" class="form-label">Actors</label>
             <input type="text" name="actors" class="form-control" required>
         </div>
+
         <div class="mb-3">
             <label for="cover_image" class="form-label">URL Gambar Cover</label>
             <input type="text" name="cover_image" class="form-control" required>

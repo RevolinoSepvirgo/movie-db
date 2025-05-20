@@ -10,9 +10,10 @@ class MovieController extends Controller
 {
     public function index()
 {
-    $movies = Movie::latest()->get(); // mengurutkan berdasarkan created_at DESC
+   $movies = Movie::latest()->paginate(6); // Ambil 6 film per halaman, urutkan dari terbaru
     return view('movies.index', compact('movies'));
 }
+
 
 public function store(Request $request)
 {
@@ -98,6 +99,16 @@ public function destroy($id)
 
     // Redirect setelah berhasil
     return redirect()->route('movies.index')->with('success', 'Film berhasil dihapus!');
+}
+
+public function homepage()
+{
+    return view(('test.template'));
+}
+
+public function show(Movie $movie)
+{
+    return view('movies.show', compact('movie'));
 }
 
 
