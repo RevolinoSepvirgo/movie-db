@@ -37,13 +37,18 @@
             <input type="text" name="synopsis" id="synopsis" class="form-control" value="{{ old('synopsis', $movie->synopsis) }}" required>
         </div>
 
+         <div class="mb-3">
+            <label for="cover_image" class="form-label">cover_image</label>
+            <input type="text" name="cover_image" id="cover_image" class="form-control" value="{{ old('cover_image', $movie->cover_image) }}" required>
+        </div>
+{{--
         <div class="mb-3">
             <label for="cover_image" class="form-label">Gambar</label>
             <input type="file" name="cover_image" id="cover_image" class="form-control">
             @if($movie->cover_image)
                 <img src="{{ asset('storage/' . $movie->cover_image) }}" alt="Cover Image" class="mt-2" width="100">
             @endif
-        </div>
+        </div> --}}
 
         <button type="submit" class="btn btn-primary">Update Film</button>
     </form>

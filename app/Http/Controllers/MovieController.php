@@ -55,7 +55,8 @@ public function update(Request $request, $id)
         'category_id' => 'required|exists:categories,id',
         'year' => 'required|integer',
         'actors' => 'required|string',
-        'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'synopsis'=> 'required|string',
+        'cover_image' =>'required|string',
     ]);
 
     // Menemukan film berdasarkan ID
@@ -65,17 +66,20 @@ public function update(Request $request, $id)
     $movie->title = $request->title;
     $movie->category_id = $request->category_id;
     $movie->year = $request->year;
+    $movie->synopsis = $request->synopsis;
     $movie->actors = $request->actors;
+    $movie->cover_image = $request->cover_image;
+
 
     // Cek apakah ada gambar yang diupload
-    if ($request->hasFile('cover_image')) {
-        // Hapus gambar lama jika ada
-        if ($movie->cover_image && file_exists(public_path('storage/' . $movie->cover_image))) {
-            unlink(public_path('storage/' . $movie->cover_image));
-        }
-        // Simpan gambar baru
-        $movie->cover_image = $request->file('cover_image')->store('movies', 'public');
-    }
+    // if ($request->hasFile('cover_image')) {
+    //     // Hapus gambar lama jika ada
+    //     if ($movie->cover_image && file_exists(public_path('storage/' . $movie->cover_image))) {
+    //         unlink(public_path('storage/' . $movie->cover_image));
+    //     }
+    //     // Simpan gambar baru
+    //     $movie->cover_image = $request->file('cover_image')->store('movies', 'public');
+    // }
 
     // Simpan perubahan
     $movie->save();
