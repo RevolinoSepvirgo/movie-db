@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class MovieController extends Controller
 {
@@ -19,18 +20,39 @@ public function store(Request $request)
 {
     $request->validate([
         'title' => 'required',
-        'slug' => 'required',
+        // 'slug' => 'required',
         'synopsis' => 'required',
         'category_id' => 'required|exists:categories,id',
         'year' => 'required|integer',
         'actors' => 'required',
-        'cover_image' => 'required|url',
+        'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
+    $slug = Str::slug($request->title);
 
-    Movie::create($request->all());
+        $count = Movie::where('slug', $slug)->count();
+        if ($count > 0) {
+            $slug .= '-' . ($count + 1);
+        }
+
+
+
+    if ($request->hasFile('cover_image')) {
+        $cover = $request->file('cover_image')->store('movies', 'public');
+    }
+
+    Movie::create([
+        'title' => $request->title,
+        'slug' => $slug,
+        'synopsis' => $request->synopsis,
+        'category_id' => $request->category_id,
+        'year' => $request->year,
+        'actors' => $request->actors,
+        'cover_image' => $cover ?? null,
+    ]);
 
     return redirect()->route('movies.index')->with('success', 'Film berhasil ditambahkan!');
 }
+
 
 public function create()
 {
@@ -38,16 +60,17 @@ public function create()
     return view('movies.create', compact('categories'));
 }
 
-public function edit($id)
+
+public function edit(Movie $movie)
 {
 
-    $movie = Movie::findOrFail($id);
+    // $movie = Movie::findOrFail($id);
     $categories = Category::all(); // ambil semua kategori dari tabel categories
 
     return view('movies.edit', compact('movie', 'categories'));
 }
 
-public function update(Request $request, $id)
+public function update(Request $request,Movie $movie)
 {
     // Validasi input
     $request->validate([
@@ -56,11 +79,19 @@ public function update(Request $request, $id)
         'year' => 'required|integer',
         'actors' => 'required|string',
         'synopsis'=> 'required|string',
-        'cover_image' =>'required|string',
+        'cover_image' =>'nullable|image',
     ]);
 
+    $slug = Str::slug($request->title);
+
+    // Pastikan slug unik (kecuali untuk movie ini sendiri)
+    $count = Movie::where('slug', $slug)->where('id', '!=', $movie->id)->count();
+    if ($count > 0) {
+        $slug .= '-' . ($count + 1);
+    }
+
     // Menemukan film berdasarkan ID
-    $movie = Movie::findOrFail($id);
+    // $movie = Movie::findOrFail($id);
 
     // Update data film
     $movie->title = $request->title;
@@ -68,7 +99,17 @@ public function update(Request $request, $id)
     $movie->year = $request->year;
     $movie->synopsis = $request->synopsis;
     $movie->actors = $request->actors;
-    $movie->cover_image = $request->cover_image;
+     if ($request->hasFile('cover_image')) {
+        // Hapus gambar lama jika ada
+        if ($movie->cover_image && file_exists(public_path('storage/' . $movie->cover_image))) {
+            unlink(public_path('storage/' . $movie->cover_image));
+        }
+        $movie->cover_image = $request->file('cover_image')->store('movies', 'public');
+    }
+
+    $movie->save();
+     return redirect()->route('movies.index')->with('success', 'Film berhasil diperbarui!');
+
 
 
     // Cek apakah ada gambar yang diupload
@@ -88,10 +129,10 @@ public function update(Request $request, $id)
     return redirect()->route('movies.index')->with('success', 'Film berhasil diperbarui!');
 }
 
-public function destroy($id)
+public function destroy(Movie $movie)
 {
     // Menemukan film berdasarkan ID
-    $movie = Movie::findOrFail($id);
+    // $movie = Movie::findOrFail($id);
 
     // Hapus gambar jika ada
     if ($movie->cover_image && file_exists(public_path('storage/' . $movie->cover_image))) {
