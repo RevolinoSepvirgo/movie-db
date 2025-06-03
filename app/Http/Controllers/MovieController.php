@@ -9,8 +9,19 @@ use Illuminate\Support\Str;
 
 class MovieController extends Controller
 {
-    public function index()
+    public function index(Request $request)
 {
+    $query = Movie::query();
+
+    // Filter search
+    if ($request->filled('search')) {
+        $query->where('title', 'like', '%' . $request->search . '%');
+    }
+
+    // Filter kategori (opsional)
+    if ($request->filled('category')) {
+        $query->where('category_id', $request->category);
+    }
    $movies = Movie::latest()->paginate(6); // Ambil 6 film per halaman, urutkan dari terbaru
     return view('movies.index', compact('movies'));
 }
@@ -72,34 +83,33 @@ public function edit(Movie $movie)
 
 public function update(Request $request,Movie $movie)
 {
-    // Validasi input
+// Validasi input
     $request->validate([
         'title' => 'required|string|max:255',
         'category_id' => 'required|exists:categories,id',
         'year' => 'required|integer',
         'actors' => 'required|string',
         'synopsis'=> 'required|string',
-        'cover_image' =>'nullable|image',
+        'cover_image' =>'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
+    // Update slug jika judul berubah
     $slug = Str::slug($request->title);
-
-    // Pastikan slug unik (kecuali untuk movie ini sendiri)
     $count = Movie::where('slug', $slug)->where('id', '!=', $movie->id)->count();
     if ($count > 0) {
         $slug .= '-' . ($count + 1);
     }
 
-    // Menemukan film berdasarkan ID
-    // $movie = Movie::findOrFail($id);
-
     // Update data film
     $movie->title = $request->title;
+    $movie->slug = $slug;
     $movie->category_id = $request->category_id;
     $movie->year = $request->year;
     $movie->synopsis = $request->synopsis;
     $movie->actors = $request->actors;
-     if ($request->hasFile('cover_image')) {
+
+    // Jika ada file baru diupload
+    if ($request->hasFile('cover_image')) {
         // Hapus gambar lama jika ada
         if ($movie->cover_image && file_exists(public_path('storage/' . $movie->cover_image))) {
             unlink(public_path('storage/' . $movie->cover_image));
@@ -108,24 +118,7 @@ public function update(Request $request,Movie $movie)
     }
 
     $movie->save();
-     return redirect()->route('movies.index')->with('success', 'Film berhasil diperbarui!');
 
-
-
-    // Cek apakah ada gambar yang diupload
-    // if ($request->hasFile('cover_image')) {
-    //     // Hapus gambar lama jika ada
-    //     if ($movie->cover_image && file_exists(public_path('storage/' . $movie->cover_image))) {
-    //         unlink(public_path('storage/' . $movie->cover_image));
-    //     }
-    //     // Simpan gambar baru
-    //     $movie->cover_image = $request->file('cover_image')->store('movies', 'public');
-    // }
-
-    // Simpan perubahan
-    $movie->save();
-
-    // Redirect setelah berhasil
     return redirect()->route('movies.index')->with('success', 'Film berhasil diperbarui!');
 }
 

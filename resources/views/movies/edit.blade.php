@@ -4,7 +4,7 @@
 <div class="container">
     <h1>Edit Film</h1>
 
-    <form action="{{ route('movies.update', $movie->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('movies.update', $movie->slug) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -33,22 +33,17 @@
             <input type="text" name="actors" id="actors" class="form-control" value="{{ old('actors', $movie->actors) }}" required>
         </div>
         <div class="mb-3">
-            <label for="synopsis" class="form-label">synopsis</label>
-            <input type="text" name="synopsis" id="synopsis" class="form-control" value="{{ old('synopsis', $movie->synopsis) }}" required>
+            <label for="synopsis" class="form-label">Sinopsis</label>
+            <textarea name="synopsis" id="synopsis" class="form-control" required>{{ old('synopsis', $movie->synopsis) }}</textarea>
         </div>
 
-         <div class="mb-3">
-            <label for="cover_image" class="form-label">cover_image</label>
-            <input type="text" name="cover_image" id="cover_image" class="form-control" value="{{ old('cover_image', $movie->cover_image) }}" required>
-        </div>
-{{--
         <div class="mb-3">
-            <label for="cover_image" class="form-label">Gambar</label>
+            <label for="cover_image" class="form-label">Gambar Cover</label>
             <input type="file" name="cover_image" id="cover_image" class="form-control">
             @if($movie->cover_image)
                 <img src="{{ asset('storage/' . $movie->cover_image) }}" alt="Cover Image" class="mt-2" width="100">
             @endif
-        </div> --}}
+        </div>
 
         <button type="submit" class="btn btn-primary">Update Film</button>
     </form>

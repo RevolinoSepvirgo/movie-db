@@ -1,3 +1,14 @@
+{{-- Kreasi Nama di Paling Atas --}}
+// filepath: d:\KULIAH\Semester4\WEB FRAMEWROK\movie-db\resources\views\movies\index.blade.php
+<div class="text-center mb-4" style="background: linear-gradient(90deg, #ff5858 0%, #f09819 100%); padding: 1.2rem 0; border-radius: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+    <h2 style="font-family: 'Segoe UI', cursive; font-size: 2.2rem; color: #fff; letter-spacing: 2px; text-shadow: 2px 2px 8px #333;">
+        🎬 Movie DB by <span style="color: #ffe066;">Nama Kamu</span> 🎬
+    </h2>
+    <div style="font-size: 1.1rem; color: #fff; opacity: 0.85;">
+        Selamat datang di koleksi film favoritku! <span style="color:#ffe066;">Enjoy exploring!</span>
+    </div>
+</div>
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -5,6 +16,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+
 </p>
 
 ## About Laravel
