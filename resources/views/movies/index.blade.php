@@ -18,6 +18,7 @@
 </style>
 
 @section('content')
+
 <div class=" continer">
     <div>
     <h1 class="md-4 text-center text-dark" style="font-size: 2.0rem; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">Daftar Film</h1>
@@ -28,31 +29,25 @@
     <i class="bi bi-plus-circle"></i> Tambah Film
 </a>
 
-<form method="GET" class="mb-8 flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-4 sm:space-y-0">
-        <input
-            type="text" name="search" value="{{ request('search') }}"
-            placeholder="Cari judul film..."
-            class="flex-grow sm:flex-shrink-0 px-4 py-2 border border-gray-300 rounded-lg shadow-sm
-                   focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent
-                   dark:bg-gray-800 dark:text-white dark:border-gray-600"
-        >
-        <select name="category"
-            class="w-full sm:w-48 px-4 py-2 border border-gray-300 rounded-lg shadow-sm
-                   focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent
-                   dark:bg-gray-800 dark:text-white dark:border-gray-600">
-            <option value="">Semua Kategori</option>
-            @foreach(App\Models\Category::all() as $category)
-                <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
-                    {{ $category->category_name }}
-                </option>
-            @endforeach
-        </select>
-        <button
-            class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-lg shadow-md
-                   transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-            Filter
-        </button>
-    </form>
+{{-- <form method="GET" class="d-flex mb-4">
+    <input
+        type="text"
+        name="search"
+        value="{{ request('search') }}"
+        placeholder="Cari judul film..."
+        class="form-control me-2"
+        style="max-width:300px;"
+    >
+    <select name="category" class="form-select me-2" style="max-width:200px;">
+        <option value="">Semua Kategori</option>
+        @foreach(App\Models\Category::all() as $category)
+            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                {{ $category->category_name }}
+            </option>
+        @endforeach
+    </select>
+    <button class="btn btn-success">Filter</button>
+</form> --}}
 
 
     <div class="row">

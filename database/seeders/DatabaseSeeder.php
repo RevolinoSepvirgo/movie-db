@@ -16,11 +16,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $this->call([
-            CategorySeeder::class,
-        ]);
+        // $this->call([
+        //     CategorySeeder::class,
+        // ]);
 
-        Movie::factory()->count(20)->create();
+        //  User::factory(5)->create();
+
+         Movie::factory(10)->create();
+
 
         // User::factory()->create([
         //     'name' => 'Test User',
