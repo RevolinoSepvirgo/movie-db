@@ -119,7 +119,7 @@ public function update(Request $request,Movie $movie)
 
     $movie->save();
 
-    return redirect()->route('movies.index')->with('success', 'Film berhasil diperbarui!');
+    return redirect()->route('movies.table')->with('success', 'Film berhasil diperbarui!');
 }
 
 public function destroy(Movie $movie)
@@ -136,7 +136,7 @@ public function destroy(Movie $movie)
     $movie->delete();
 
     // Redirect setelah berhasil
-    return redirect()->route('movies.index')->with('success', 'Film berhasil dihapus!');
+    return redirect()->route('movies.table')->with('success', 'Film berhasil dihapus!');
 }
 
 public function homepage()
@@ -147,6 +147,12 @@ public function homepage()
 public function show(Movie $movie)
 {
     return view('movies.show', compact('movie'));
+}
+
+public function table()
+{
+    $movies = \App\Models\Movie::with('category')->latest()->get();
+    return view('movies.table', compact('movies'));
 }
 
 

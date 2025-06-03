@@ -33,6 +33,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 
+Route::get('/movies-table', [MovieController::class, 'table'])->name('movies.table');
 
 // Route::get('/movies/{movie}/edit', [MovieController::class, 'edit'])->name('movies.edit');
 // Route::delete('/movies/{movie}', [MovieController::class, 'destroy'])->name('movies.destroy');

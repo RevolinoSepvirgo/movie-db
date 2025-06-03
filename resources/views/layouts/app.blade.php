@@ -82,6 +82,13 @@
             <i class="bi bi-house-door"></i> Home
           </a>
         </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link fw-semibold text-white" href="{{ route('movies.table') }}">
+            <i class="bi bi-table"></i> Data Film
+          </a>
+        </li>
         @auth
         <li class="nav-item">
           <a class="nav-link fw-semibold text-white" href="{{ route('movies.create') }}">
@@ -89,6 +96,8 @@
           </a>
         </li>
         @endauth
+
+
         <!-- Dropdown Login / Logout -->
       @auth
       <ul class="navbar-nav">
