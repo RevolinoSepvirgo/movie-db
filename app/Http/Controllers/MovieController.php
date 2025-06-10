@@ -124,8 +124,10 @@ public function update(Request $request,Movie $movie)
 
 public function destroy(Movie $movie)
 {
-    // Menemukan film berdasarkan ID
-    // $movie = Movie::findOrFail($id);
+    // Validasi hak akses
+    
+
+
 
     // Hapus gambar jika ada
     if ($movie->cover_image && file_exists(public_path('storage/' . $movie->cover_image))) {

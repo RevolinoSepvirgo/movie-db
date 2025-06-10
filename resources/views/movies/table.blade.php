@@ -41,13 +41,19 @@
                                 <a href="{{ route('movies.edit', $movie->slug) }}" class="btn btn-warning btn-sm" title="Edit">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
+
+                                @can('delete')
+
+
                                 <form action="{{ route('movies.destroy', $movie->slug) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus film ini?')">
                                     @csrf
+
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm" title="Hapus">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </form>
+                                 @endcan
                                  @endauth
                             </td>
                         </tr>

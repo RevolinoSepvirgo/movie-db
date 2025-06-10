@@ -25,9 +25,9 @@
 </div>
 
     {{-- Tombol Tambah Film --}}
-   <a href="{{ route('movies.create') }}" class="btn btn-primary mb-3" style="transition: all 0.3s ease;">
+   {{-- <a href="{{ route('movies.create') }}" class="btn btn-primary mb-3" style="transition: all 0.3s ease;">
     <i class="bi bi-plus-circle"></i> Tambah Film
-</a>
+</a> --}}
 
 {{-- <form method="GET" class="d-flex mb-4">
     <input

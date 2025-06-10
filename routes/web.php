@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MovieController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\RoleAdmin;
 
  Route::get('/test', function () {
     return view('test.template');
@@ -14,13 +15,42 @@ Route::get('/', [MovieController::class, 'index'])->name('movies.index');
 
 Route::resource('movies', MovieController::class)->parameters(['movies' => 'movie:slug']);
 
+Route::get('/create-movie', [MovieController::class, 'create'])->name('movies.create')->middleware('auth');
+
+Route::get('edit-movie', [MovieController::class, 'edit'])->name('movies.edit')->middleware('auth' , RoleAdmin::class);
+
+Route::get('delete-movie', [MovieController::class, 'destroy'])->name('movies.edit')->middleware('auth', RoleAdmin::class);
+
+Route::post('/store-movie', [MovieController::class, 'store'])->name('movies.store')->middleware('auth');
+
+
 Route::resource('categories',CategoryController::class);
 
 
-Route::resource('movies', MovieController::class)
-    ->parameters(['movies' => 'movie:slug'])
-    ->middleware('auth')
-    ->except(['index', 'show']);
+// Route::resource('movies', MovieController::class)
+//     ->parameters(['movies' => 'movie:slug']);
+
+// // untuk admin
+//     Route::middleware(['auth', 'admin'])->group(function () {
+//     Route::get('movies/{movie}/edit', [MovieController::class, 'edit'])->name('movies.edit');
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  Route::get('/login', [AuthController::class, 'loginFrom'])->name('login');
