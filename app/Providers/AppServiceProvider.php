@@ -24,12 +24,13 @@ class AppServiceProvider extends ServiceProvider
 
     {
         Paginator::useBootstrapFive();
+        
 
         //police untuk admin ke
         Gate::define('delete',function ($user) {
             return $user->role === 'admin';
         });
-        
+
 
     }
 }

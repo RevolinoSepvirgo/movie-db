@@ -9,20 +9,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleAdmin
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next): Response
-
+    public function handle(Request $request, Closure $next)
     {
         if (Auth::check() && Auth::user()->role === 'admin') {
             return $next($request);
         }
 
-
-            abort(403, 'Akses ditolak. Hanya admin yang boleh.');
+        abort(403, 'Akses ditolak. Anda bukan admin.');
     }
 
 }

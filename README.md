@@ -1,3 +1,4 @@
+
 {{-- Kreasi Nama di Paling Atas --}}
 // filepath: d:\KULIAH\Semester4\WEB FRAMEWROK\movie-db\resources\views\movies\index.blade.php
 <div class="text-center mb-4" style="background: linear-gradient(90deg, #ff5858 0%, #f09819 100%); padding: 1.2rem 0; border-radius: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
